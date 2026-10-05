@@ -32,6 +32,7 @@ DINGTALK_DONE_EMOJI=✅Done
 DINGTALK_CARD_TEMPLATE_ID=
 DINGTALK_CARD_TEMPLATE_KEY=content
 DINGTALK_CARD_ENABLED=true
+DINGTALK_STATE_DB=./dingtalk-state.sqlite3
 ```
 
 `FASTGPT_BASE_URL` 填 FastGPT 根地址，不要带 `/api/v1`。`FASTGPT_APP_ID` 必须填写目标应用的 ID，通常可以从 FastGPT 应用页面 URL 中找到。
@@ -41,6 +42,8 @@ DINGTALK_CARD_ENABLED=true
 要让同一张消息卡片边生成边更新，请先在钉钉开放平台创建 AI 卡片模板，并将它的模板 ID 填入 `DINGTALK_CARD_TEMPLATE_ID`。模板需有名为 `content` 的文本变量；变量名不同可通过 `DINGTALK_CARD_TEMPLATE_KEY` 指定。钉钉应用还需开通 `Card.Streaming.Write` 权限。程序会在每轮回复时自动创建卡片并维护 `outTrackId`，无需提前提供卡片实例 ID。卡片创建失败时会回退到一条最终 Markdown 回复。设 `DINGTALK_CARD_ENABLED=false` 可暂时关闭卡片而保留模板配置。
 
 `DINGTALK_REACTION_EMOJI` 和 `DINGTALK_DONE_EMOJI` 控制原消息上的处理状态表情；设为 `none` 可分别关闭。排查知识库命中问题时，可以临时设置 `FASTGPT_DETAIL=true`。
+
+机器人支持 `/new`、`/reset`、`/clear`、`/help`、`/status`、`/compact`、`/model` 和 `/usage`；完整行为、持久化要求及多应用配置见 [钉钉命令](./COMMANDS.md)。
 
 ## 钉钉后台
 
